@@ -1,0 +1,24 @@
+#!/bin/bash
+# default partition:
+# /dev/sda1 - boot
+# /dev/sda2 - swap
+# /dev/sda3 - root
+# /dev/sda4 - home
+
+boot="/dev/sda1"
+swap="/dev/sda2"
+root="/dev/sda3"
+home="/dev/sda4"
+
+mkfs.ext2 $boot
+mkfs.ext4 $root
+mkfs.ext4 $home
+mkswap $swap
+swapon $swap
+echo "mkfs + swap finished successful"
+
+mount $root /mnt
+mkdir /mnt/{boot,home}
+mount $boot /mnt/boot
+mount $home /mnt/home
+echo "mounted successful"
